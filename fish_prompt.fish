@@ -18,6 +18,7 @@
 set -g current_bg NONE
 set segment_separator \uE0B0
 set right_segment_separator \uE0B0
+set _next_prompt \uE0B0
 # ===========================
 # Helper methods
 # ===========================
@@ -80,7 +81,9 @@ function prompt_finish -d "Close open segments"
   if [ -n $current_bg ]
     set_color -b normal
     set_color $current_bg
-    echo -n "$segment_separator "
+    echo -en "$segment_separator\n"
+
+    echo -n "$_next_prompt "
   end
   set -g current_bg NONE
 end
