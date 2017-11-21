@@ -19,6 +19,7 @@
 set -g current_bg NONE
 set segment_separator \uE0B0
 set right_segment_separator \uE0B0
+set _next_prompt \uE0B0
 set -q scm_prompt_blacklist; or set scm_prompt_blacklist
 
 # ===========================
@@ -114,6 +115,7 @@ function prompt_segment -d "Function to draw a segment"
     set_color -b $bg
     set_color $current_bg
     echo -n "$segment_separator "
+
     set_color -b $bg
     set_color $fg
   else
@@ -131,7 +133,9 @@ function prompt_finish -d "Close open segments"
   if [ -n $current_bg ]
     set_color normal
     set_color $current_bg
-    echo -n "$segment_separator "
+    echo -en "$segment_separator\n"
+    echo -n "$_next_prompt "
+
     set_color normal
   end
   set -g current_bg NONE
